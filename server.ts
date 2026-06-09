@@ -9,7 +9,7 @@ import fs from 'fs';
 import { createServer as createViteServer } from 'vite';
 import { Raffle, TicketSale, GatewayConfig, AuditLog, WebhookSimulationLog, DashboardStats, TicketStatus } from './src/types';
 
-const app = express();
+export const app = express();
 const PORT = 3000;
 
 app.use(express.json());
@@ -1058,3 +1058,5 @@ async function startServer() {
 }
 
 startServer();
+
+export default app;
