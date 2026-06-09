@@ -1,0 +1,6 @@
+{
+  "name": "ChanceVip",
+  "description": "Plataforma profissional de rifas online com seleção manual de até 10.000 cotas, painel de administração integrado, simuladores de PIX e alertas automáticos via WhatsApp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
