@@ -1016,7 +1016,7 @@ export default function AdminPanel({ raffles, onRefreshRaffles, onNavigateToRaff
                           {raffle.totalNumbers} cotas
                         </span>
                       </div>
-                      <h4 className="text-sm font-bold text-zinc-850 dark:text-zinc-100 line-clamp-1 leading-normal">
+                      <h4 className="text-sm font-bold text-zinc-850 dark:text-white line-clamp-1 leading-normal">
                         {raffle.name}
                       </h4>
                       <p className="text-[11px] text-emerald-600 dark:text-emerald-400 font-bold font-mono">

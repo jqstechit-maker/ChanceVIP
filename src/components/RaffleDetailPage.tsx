@@ -140,7 +140,7 @@ export default function RaffleDetailPage({ raffle, occupied, stats, onCheckout }
   return (
     <div className="space-y-8" id="raffle-details-view">
       {/* Back and Breadcrumbs / Basic Details Card */}
-      <div className="bg-white dark:bg-zinc-950/40 rounded-2xl border border-zinc-200 dark:border-zinc-900 overflow-hidden shadow-sm flex flex-col lg:flex-row">
+      <div className="bg-zinc-950/40 rounded-2xl border border-zinc-900 overflow-hidden shadow-sm flex flex-col lg:flex-row">
         <div className="w-full lg:w-1/2 h-64 lg:h-auto min-h-[320px] relative bg-zinc-100 dark:bg-zinc-900">
           <img
             src={raffle.imageUrl}
@@ -231,7 +231,7 @@ export default function RaffleDetailPage({ raffle, occupied, stats, onCheckout }
       </div>
 
       {/* Manual Grid Section with Tabs & Filters */}
-      <div className="bg-white dark:bg-zinc-950/40 rounded-2xl border border-zinc-200 dark:border-zinc-900 p-6 space-y-6" id="numbers-grid-container">
+      <div className="bg-zinc-950/40 rounded-2xl border border-zinc-900 p-6 space-y-6" id="numbers-grid-container">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-100 dark:border-zinc-900 pb-5">
           <div className="space-y-1">
             <h2 className="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-1.5 font-sans">
@@ -422,7 +422,7 @@ export default function RaffleDetailPage({ raffle, occupied, stats, onCheckout }
       </div>
 
       {raffle.rules && (
-        <div className="bg-white dark:bg-zinc-950/40 rounded-2xl border border-zinc-200 dark:border-zinc-900 p-6">
+        <div className="bg-zinc-950/40 rounded-2xl border border-zinc-900 p-6">
           <h3 className="text-sm font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 font-mono mb-3">
             Regulamento Completo
           </h3>
@@ -435,7 +435,7 @@ export default function RaffleDetailPage({ raffle, occupied, stats, onCheckout }
       {/* Persistent Shopping Cart Bottom Bar (Sticky when selection exists) */}
       {selectedNumbers.length > 0 && (
         <div
-          className="fixed bottom-0 left-0 right-0 p-4 bg-white/95 dark:bg-zinc-950/95 backdrop-blur border-t border-zinc-200 dark:border-zinc-900 z-40 shadow-2xl transition-all animate-in slide-in-from-bottom"
+          className="fixed bottom-0 left-0 right-0 p-4 bg-zinc-950/95 backdrop-blur border-t border-zinc-900 z-40 shadow-2xl transition-all animate-in slide-in-from-bottom"
           id="raffle-shopping-cart-bar"
         >
           <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">

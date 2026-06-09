@@ -30,7 +30,7 @@ export default function WinnerPanel({ raffles, onSelectRaffle }: WinnerPanelProp
       </div>
 
       {drawnRaffles.length === 0 ? (
-        <div className="flex flex-col items-center justify-center p-12 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 text-center space-y-3">
+        <div className="flex flex-col items-center justify-center p-12 bg-zinc-900 rounded-2xl border border-zinc-800 text-center space-y-3">
           <Award className="w-12 h-12 text-zinc-300 dark:text-zinc-700" />
           <p className="text-zinc-500 dark:text-zinc-400 font-medium">Nenhum sorteio homologado ainda.</p>
           <p className="text-xs text-zinc-400 dark:text-zinc-500">Volte em breve para conferir os resultados!</p>
@@ -40,7 +40,7 @@ export default function WinnerPanel({ raffles, onSelectRaffle }: WinnerPanelProp
           {drawnRaffles.map(raffle => (
             <div
               key={raffle.id}
-              className="bg-white dark:bg-zinc-950/50 rounded-2xl border border-zinc-100 dark:border-zinc-900 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col md:flex-row relative group"
+              className="bg-zinc-950/50 rounded-2xl border border-zinc-900 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col md:flex-row relative group"
               id={`winner-card-${raffle.id}`}
             >
               {/* Decorative side accent */}

@@ -80,7 +80,7 @@ export default function ClientArea({ onSelectPayment, autoFocusQuery = '' }: Cli
         </p>
       </div>
 
-      <div className="bg-white dark:bg-zinc-950/50 rounded-2xl border border-zinc-200 dark:border-zinc-900 overflow-hidden shadow-sm p-6">
+      <div className="bg-zinc-950/50 rounded-2xl border border-zinc-900 overflow-hidden shadow-sm p-6">
         <form onSubmit={handleSearch} className="space-y-4">
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="relative flex-grow">
@@ -140,7 +140,7 @@ export default function ClientArea({ onSelectPayment, autoFocusQuery = '' }: Cli
               {results.map((sale) => (
                 <div
                   key={sale.paymentId}
-                  className="bg-white dark:bg-zinc-950/50 rounded-2xl border border-zinc-100 dark:border-zinc-900/60 p-5 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col md:flex-row gap-5 items-start md:items-center justify-between"
+                  className="bg-zinc-950/50 rounded-2xl border border-zinc-900/60 p-5 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col md:flex-row gap-5 items-start md:items-center justify-between"
                   id={`purchase-${sale.paymentId}`}
                 >
                   <div className="flex gap-4 items-center">

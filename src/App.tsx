@@ -84,7 +84,7 @@ function CheckoutModal({ raffle, selectedNumbers, onClose, onSuccess }: Checkout
 
           <div className="bg-zinc-50 dark:bg-zinc-900/40 p-4 rounded-xl border space-y-1.5 text-xs">
             <span className="text-[10px] uppercase font-mono tracking-wider font-bold text-zinc-400">Resumo do pedido</span>
-            <p className="font-bold text-zinc-850 dark:text-zinc-200">{raffle.name}</p>
+            <p className="font-bold text-zinc-850 dark:text-white">{raffle.name}</p>
             <p className="font-mono text-zinc-500">
               Cotas ({selectedNumbers.length}): {selectedNumbers.join(', ')}
             </p>
@@ -520,7 +520,7 @@ export default function App() {
     <div className={`min-h-screen transition-colors duration-300 ${theme === 'dark' ? 'dark bg-zinc-950 text-zinc-100' : 'bg-zinc-50 text-zinc-900'}`} id="app-container">
       
       {/* HEADER NAVBAR */}
-      <header className="sticky top-0 z-40 bg-white/90 dark:bg-zinc-950/90 backdrop-blur border-b border-zinc-250 dark:border-zinc-900 shadow-sm">
+      <header className="sticky top-0 z-40 bg-zinc-950/90 backdrop-blur border-b border-zinc-900 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           <div
             onClick={() => { setView('home'); setSelectedRaffleId(null); }}
@@ -616,7 +616,7 @@ export default function App() {
 
         {/* Mobile Navigation Drawer Overlay */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-white dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-900 p-4 transition-all block animate-in slide-in-from-top-4">
+          <div className="md:hidden bg-zinc-950 border-t border-zinc-900 p-4 transition-all block animate-in slide-in-from-top-4">
             <div className="flex flex-col gap-3 font-semibold text-xs text-zinc-700 dark:text-zinc-300">
               <button
                 onClick={() => { setView('home'); setSelectedRaffleId(null); setMobileMenuOpen(false); }}
@@ -652,6 +652,84 @@ export default function App() {
         
         {view === 'home' && (
           <div className="space-y-8 animate-in fade-in duration-300" id="home-view">
+            {/* List of Active Raffles */}
+            <div className="space-y-4">
+              <h2 className="text-lg font-bold text-zinc-900 dark:text-white uppercase tracking-tight flex items-center gap-1.5 font-sans">
+                🍀 Sorteios em Destaque
+              </h2>
+
+              {loading && raffles.length === 0 ? (
+                <div className="flex flex-col items-center justify-center p-12 space-y-2 bg-zinc-900 rounded-2xl border border-zinc-900">
+                  <RefreshCw className="w-8 h-8 text-emerald-500 animate-spin" />
+                  <span className="text-xs text-zinc-500">Montando os sorteios...</span>
+                </div>
+              ) : (
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" id="public-raffles-grid">
+                  {raffles.filter(r => r.status === 'active').map(raffle => {
+                    const numbersSold = (raffle as any).numbersSold || 0;
+                    const numbersReserved = (raffle as any).numbersReserved || 0;
+                    const progressPercent = Math.min(100, Math.round((numbersSold / raffle.totalNumbers) * 100));
+
+                    return (
+                      <div
+                        key={raffle.id}
+                        onClick={() => handleSelectRaffle(raffle.id)}
+                        className="bg-zinc-950/40 rounded-2xl border border-zinc-900 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col group cursor-pointer"
+                        id={`raffle-card-${raffle.id}`}
+                      >
+                        <div className="h-48 md:h-52 w-full bg-zinc-100 dark:bg-zinc-900 overflow-hidden relative">
+                          <img
+                            src={raffle.imageUrl}
+                            alt={raffle.name}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            referrerPolicy="no-referrer"
+                          />
+                          <div className="absolute top-3 left-3 bg-emerald-600 text-white font-mono font-bold px-2.5 py-1 rounded text-xs">
+                            R$ {raffle.numberPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                          </div>
+                        </div>
+
+                        <div className="p-5 flex-grow flex flex-col justify-between space-y-4 text-xs font-sans text-left">
+                          <div className="space-y-2">
+                            <span className="text-[10px] text-zinc-400 block font-semibold uppercase tracking-wider font-mono">
+                              FEDERAL: {raffle.drawDate ? new Date(raffle.drawDate).toLocaleDateString('pt-BR') : 'A definir'}
+                            </span>
+                            <h3 className="text-sm sm:text-base font-bold text-zinc-850 dark:text-white group-hover:text-emerald-500 leading-snug line-clamp-2">
+                              {raffle.name}
+                            </h3>
+                          </div>
+
+                          <div className="space-y-1.5 pt-2">
+                            <div className="flex justify-between font-semibold text-zinc-500 dark:text-zinc-400">
+                              <span>Progresso ({progressPercent}%)</span>
+                              <span className="font-mono text-emerald-600 font-bold">{numbersSold} pagos</span>
+                            </div>
+                            <div className="w-full h-1.5 bg-zinc-100 dark:bg-zinc-900 rounded-full overflow-hidden">
+                              <div
+                                className="h-full bg-emerald-600 rounded-full"
+                                style={{ width: `${progressPercent}%` }}
+                              />
+                            </div>
+                            <span className="text-[10px] text-zinc-400 block font-mono">Total cotas: {raffle.totalNumbers}</span>
+                          </div>
+
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleSelectRaffle(raffle.id);
+                            }}
+                            className="w-full mt-2 bg-zinc-900 hover:bg-zinc-850 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-white text-xs font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-1.5 cursor-pointer"
+                          >
+                            Escolher Números Manuais <ArrowRight className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
             {/* Visual Hero Header */}
             <div className="relative p-8 sm:p-12 bg-gradient-to-b from-[#121216] to-[#0A0A0C] border border-white/5 text-white rounded-3xl overflow-hidden shadow-2xl flex flex-col lg:flex-row justify-between items-center gap-8">
               {/* Left Column: Title & Slogan */}
@@ -726,84 +804,6 @@ export default function App() {
               {/* Backglow decor */}
               <div className="absolute -bottom-10 -right-10 w-96 h-96 bg-indigo-600/5 rounded-full blur-3xl pointer-events-none" />
             </div>
-
-            {/* List of Active Raffles */}
-            <div className="space-y-4">
-              <h2 className="text-lg font-bold text-zinc-900 dark:text-white uppercase tracking-tight flex items-center gap-1.5 font-sans">
-                🍀 Sorteios em Destaque
-              </h2>
-
-              {loading && raffles.length === 0 ? (
-                <div className="flex flex-col items-center justify-center p-12 space-y-2 bg-white dark:bg-zinc-900 rounded-2xl border">
-                  <RefreshCw className="w-8 h-8 text-emerald-500 animate-spin" />
-                  <span className="text-xs text-zinc-500">Montando os sorteios...</span>
-                </div>
-              ) : (
-                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" id="public-raffles-grid">
-                  {raffles.filter(r => r.status === 'active').map(raffle => {
-                    const numbersSold = (raffle as any).numbersSold || 0;
-                    const numbersReserved = (raffle as any).numbersReserved || 0;
-                    const progressPercent = Math.min(100, Math.round((numbersSold / raffle.totalNumbers) * 100));
-
-                    return (
-                      <div
-                        key={raffle.id}
-                        onClick={() => handleSelectRaffle(raffle.id)}
-                        className="bg-white dark:bg-zinc-950/40 rounded-2xl border border-zinc-200 dark:border-zinc-900 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col group cursor-pointer"
-                        id={`raffle-card-${raffle.id}`}
-                      >
-                        <div className="h-48 md:h-52 w-full bg-zinc-100 dark:bg-zinc-900 overflow-hidden relative">
-                          <img
-                            src={raffle.imageUrl}
-                            alt={raffle.name}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            referrerPolicy="no-referrer"
-                          />
-                          <div className="absolute top-3 left-3 bg-emerald-600 text-white font-mono font-bold px-2.5 py-1 rounded text-xs">
-                            R$ {raffle.numberPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-                          </div>
-                        </div>
-
-                        <div className="p-5 flex-grow flex flex-col justify-between space-y-4 text-xs font-sans text-left">
-                          <div className="space-y-2">
-                            <span className="text-[10px] text-zinc-400 block font-semibold uppercase tracking-wider font-mono">
-                              FEDERAL: {raffle.drawDate ? new Date(raffle.drawDate).toLocaleDateString('pt-BR') : 'A definir'}
-                            </span>
-                            <h3 className="text-sm sm:text-base font-bold text-zinc-850 dark:text-zinc-150 group-hover:text-emerald-500 leading-snug line-clamp-2">
-                              {raffle.name}
-                            </h3>
-                          </div>
-
-                          <div className="space-y-1.5 pt-2">
-                            <div className="flex justify-between font-semibold text-zinc-500 dark:text-zinc-400">
-                              <span>Progresso ({progressPercent}%)</span>
-                              <span className="font-mono text-emerald-600 font-bold">{numbersSold} pagos</span>
-                            </div>
-                            <div className="w-full h-1.5 bg-zinc-100 dark:bg-zinc-900 rounded-full overflow-hidden">
-                              <div
-                                className="h-full bg-emerald-600 rounded-full"
-                                style={{ width: `${progressPercent}%` }}
-                              />
-                            </div>
-                            <span className="text-[10px] text-zinc-400 block font-mono">Total cotas: {raffle.totalNumbers}</span>
-                          </div>
-
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleSelectRaffle(raffle.id);
-                            }}
-                            className="w-full mt-2 bg-zinc-900 hover:bg-zinc-850 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-white text-xs font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-1.5 cursor-pointer"
-                          >
-                            Escolher Números Manuais <ArrowRight className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
           </div>
         )}
 
@@ -811,7 +811,7 @@ export default function App() {
           <div className="space-y-4 animate-in fade-in duration-300">
             <button
               onClick={() => { setView('home'); setSelectedRaffleId(null); }}
-              className="text-xs text-zinc-500 hover:text-emerald-500 font-bold flex items-center gap-1 cursor-pointer bg-white dark:bg-zinc-900 py-1.5 px-3 rounded-lg border w-fit"
+              className="text-xs text-zinc-500 hover:text-emerald-500 font-bold flex items-center gap-1 cursor-pointer bg-zinc-900 py-1.5 px-3 rounded-lg border border-zinc-900 w-fit"
             >
               <ArrowLeft className="w-3.5 h-3.5" /> Voltar para os Sorteios
             </button>
@@ -863,7 +863,7 @@ export default function App() {
       </main>
 
       {/* FOOTER */}
-      <footer className="bg-white dark:bg-zinc-950 border-t border-zinc-250 dark:border-zinc-900 mt-16 p-8 text-center text-xs text-zinc-500 space-y-3">
+      <footer className="bg-zinc-950 border-t border-zinc-900 mt-16 p-8 text-center text-xs text-zinc-500 space-y-3">
         <div className="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-2">
             <svg viewBox="0 0 100 80" className="w-8 h-8 text-amber-500 fill-current drop-shadow-[0_0_8px_rgba(251,191,36,0.2)]">
