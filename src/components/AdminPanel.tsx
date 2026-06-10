@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Raffle, TicketSale, GatewayConfig, AuditLog, WebhookSimulationLog, DashboardStats, TicketStatus } from '../types';
-import { LayoutDashboard, Ticket, Users, Settings, ClipboardList, Plus, Trash2, Copy, Edit3, UserCheck, ShieldClose, Trash, RefreshCw, Layers, Sparkles, Hash, Download, Check, HelpCircle, ArrowRight, X } from 'lucide-react';
+import { LayoutDashboard, Ticket, Users, Settings, ClipboardList, Plus, Trash2, Copy, Edit3, UserCheck, ShieldClose, Trash, RefreshCw, Layers, Sparkles, Hash, Download, Check, HelpCircle, ArrowRight, X, Upload } from 'lucide-react';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 
 interface AdminPanelProps {
@@ -86,20 +86,32 @@ export default function AdminPanel({ raffles, onRefreshRaffles, onNavigateToRaff
   const fetchAdminAll = async () => {
     setLoading(true);
     try {
-      const pStats = adminFetch('/api/admin/stats').then(r => r.json());
-      const pConfig = adminFetch('/api/admin/config').then(r => r.json());
-      const pLogs = adminFetch('/api/admin/logs').then(r => r.json());
-      const pParts = adminFetch('/api/admin/participants').then(r => r.json());
-      const pSales = adminFetch('/api/admin/sales').then(r => r.json());
+      const rStats = await adminFetch('/api/admin/stats');
+      const rConfig = await adminFetch('/api/admin/config');
+      const rLogs = await adminFetch('/api/admin/logs');
+      const rParts = await adminFetch('/api/admin/participants');
+      const rSales = await adminFetch('/api/admin/sales');
 
-      const [statsData, configData, logsData, partsData, salesData] = await Promise.all([pStats, pConfig, pLogs, pParts, pSales]);
+      // Check if any of them is 401/Unauthorized
+      if (rStats.status === 401 || rConfig.status === 401 || rLogs.status === 401 || rParts.status === 401 || rSales.status === 401) {
+        setIsAuthenticated(false);
+        sessionStorage.removeItem('admin_authenticated');
+        sessionStorage.removeItem('admin_token');
+        return;
+      }
 
-      setStats(statsData);
-      setConfig(configData);
-      setAuditLogs(logsData.auditLogs || []);
-      setWebhookLogs(logsData.webhookLogs || []);
-      setParticipants(partsData || []);
-      setSales(salesData || []);
+      const statsData = await rStats.json();
+      const configData = await rConfig.json();
+      const logsData = await rLogs.json();
+      const partsData = await rParts.json();
+      const salesData = await rSales.json();
+
+      setStats(statsData?.error ? null : statsData);
+      setConfig(configData?.error ? null : configData);
+      setAuditLogs(logsData?.auditLogs && Array.isArray(logsData.auditLogs) ? logsData.auditLogs : []);
+      setWebhookLogs(logsData?.webhookLogs && Array.isArray(logsData.webhookLogs) ? logsData.webhookLogs : []);
+      setParticipants(Array.isArray(partsData) ? partsData : []);
+      setSales(Array.isArray(salesData) ? salesData : []);
 
       if (selectedRaffleId) {
         fetchRaffleInspect(selectedRaffleId);
@@ -127,7 +139,8 @@ export default function AdminPanel({ raffles, onRefreshRaffles, onNavigateToRaff
     e.preventDefault();
     if (!raffleInspectData || !targetNumberToInspect) return;
 
-    const formattedNum = String(targetNumberToInspect).padStart(raffleInspectData.raffle.totalNumbers === 10000 ? 4 : raffleInspectData.raffle.totalNumbers === 1000 ? 3 : 2, '0');
+    const digits = Math.max(2, String(raffleInspectData.raffle.totalNumbers - 1).length);
+    const formattedNum = String(targetNumberToInspect).padStart(digits, '0');
     const occupiedInfo = raffleInspectData.occupied[formattedNum];
     
     if (occupiedInfo) {
@@ -279,6 +292,73 @@ export default function AdminPanel({ raffles, onRefreshRaffles, onNavigateToRaff
     }
   };
 
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files) return;
+
+    const currentImages = editingRaffle?.images || [];
+    if (currentImages.length >= 5) {
+      alert('Você já atingiu o limite máximo de 5 imagens.');
+      return;
+    }
+
+    const availableSlots = 5 - currentImages.length;
+    const filesToProcess = Array.from(files).slice(0, availableSlots) as File[];
+
+    filesToProcess.forEach(file => {
+      if (!file.type.startsWith('image/')) {
+        alert('Por favor, envie apenas arquivos de imagem.');
+        return;
+      }
+      if (file.size > 1.5 * 1024 * 1024) {
+        alert('Cada imagem deve ter no máximo 1.5MB.');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const base64 = event.target?.result as string;
+        if (base64) {
+          setEditingRaffle(prev => {
+            if (!prev) return null;
+            const updatedImages = [...(prev.images || []), base64];
+            return {
+              ...prev,
+              images: updatedImages,
+              imageUrl: prev.imageUrl && prev.imageUrl.startsWith('http') && !prev.images?.length ? prev.imageUrl : (updatedImages[0] || prev.imageUrl || '')
+            };
+          });
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleRemoveImage = (indexToRemove: number) => {
+    setEditingRaffle(prev => {
+      if (!prev) return null;
+      const updatedImages = (prev.images || []).filter((_, idx) => idx !== indexToRemove);
+      return {
+        ...prev,
+        images: updatedImages,
+        imageUrl: updatedImages[0] || 'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&q=80&w=800'
+      };
+    });
+  };
+
+  const handleSetCoverImage = (index: number) => {
+    setEditingRaffle(prev => {
+      if (!prev) return null;
+      const images = prev.images || [];
+      const newCover = images[index];
+      if (!newCover) return prev;
+      return {
+        ...prev,
+        imageUrl: newCover
+      };
+    });
+  };
+
   const handleSaveRaffle = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingRaffle || !editingRaffle.name || !editingRaffle.totalNumbers || !editingRaffle.numberPrice) {
@@ -312,6 +392,7 @@ export default function AdminPanel({ raffles, onRefreshRaffles, onNavigateToRaff
       totalNumbers: original.totalNumbers,
       numberPrice: original.numberPrice,
       imageUrl: original.imageUrl,
+      images: original.images || [],
       drawConcurso: original.drawConcurso,
       status: 'active',
       prize1: original.prize1 || '',
@@ -705,20 +786,18 @@ export default function AdminPanel({ raffles, onRefreshRaffles, onNavigateToRaff
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="block font-semibold">Qtde Total de Números (Max 10k) *</label>
-                  <select
+                  <label className="block font-semibold">Qtde Total de Números (Min 5, Max 10k) *</label>
+                  <input
+                    type="number"
+                    min="5"
+                    max="10000"
                     required
                     disabled={editingRaffle.id !== undefined} // Cannot edit digits of active raffle easily
-                    value={editingRaffle.totalNumbers || 1000}
-                    onChange={(e) => setEditingRaffle(prev => ({ ...prev, totalNumbers: parseInt(e.target.value, 10) }))}
-                    className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-2 text-sm rounded-lg cursor-pointer"
-                  >
-                    <option value={100}>100 números (01 - 100)</option>
-                    <option value={500}>500 números (001 - 500)</option>
-                    <option value={1000}>1.000 números (001 - 1000)</option>
-                    <option value={5000}>5.000 números (0001 - 5000)</option>
-                    <option value={10000}>10.000 números (0001 - 10000)</option>
-                  </select>
+                    value={editingRaffle.totalNumbers !== undefined ? editingRaffle.totalNumbers : ''}
+                    onChange={(e) => setEditingRaffle(prev => ({ ...prev, totalNumbers: parseInt(e.target.value, 10) || 0 }))}
+                    className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-2 text-sm rounded-lg"
+                    placeholder="Ex: 1000"
+                  />
                 </div>
               </div>
 
@@ -744,15 +823,90 @@ export default function AdminPanel({ raffles, onRefreshRaffles, onNavigateToRaff
                 </div>
               </div>
 
-              <div className="space-y-1">
-                <label className="block font-semibold">URL Imagem Capa</label>
-                <input
-                  type="text"
-                  value={editingRaffle.imageUrl || ''}
-                  onChange={(e) => setEditingRaffle(prev => ({ ...prev, imageUrl: e.target.value }))}
-                  className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-2 text-sm rounded-lg"
-                  placeholder="https://images.unsplash.com..."
-                />
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <label className="block font-semibold text-zinc-805 dark:text-zinc-200">
+                    Imagens do Sorteio (Até 5 fotos) *
+                  </label>
+                  <span className="text-xs text-zinc-400 font-mono">
+                    {(editingRaffle.images?.length || 0)} / 5 imagens
+                  </span>
+                </div>
+                
+                {/* Drag and Drop Zone / File selector input */}
+                <div className="border-2 border-dashed border-zinc-200 dark:border-zinc-800 rounded-xl p-4 flex flex-col items-center justify-center bg-zinc-50/50 dark:bg-zinc-950/20 hover:bg-zinc-100/50 dark:hover:bg-zinc-900/10 transition-colors relative">
+                  <input
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    disabled={(editingRaffle.images?.length || 0) >= 5}
+                    className="absolute inset-0 opacity-0 cursor-pointer disabled:cursor-not-allowed"
+                    title="Selecione até 5 fotos"
+                  />
+                  <div className="flex flex-col items-center justify-center space-y-1.5 text-center pointer-events-none">
+                    <Plus className="w-8 h-8 text-indigo-500" />
+                    <div>
+                      <span className="font-bold text-xs text-indigo-600 dark:text-indigo-400">Clique para selecionar</span>
+                      <span className="text-zinc-500 dark:text-zinc-400 text-xs text-zinc-500"> ou arraste e solte</span>
+                    </div>
+                    <p className="text-[10px] text-zinc-400">Formatos suportados: JPG, PNG, WEBP (Max 1.5MB por foto)</p>
+                  </div>
+                </div>
+
+                {/* Thumbnails list with cover setting and removal */}
+                {editingRaffle.images && editingRaffle.images.length > 0 && (
+                  <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-2">
+                    {editingRaffle.images.map((imgBase64, idx) => {
+                      const isCover = editingRaffle.imageUrl === imgBase64;
+                      return (
+                        <div 
+                          key={idx} 
+                          className={`relative rounded-xl overflow-hidden border bg-zinc-900 aspect-square group ${
+                            isCover ? 'border-amber-500 ring-2 ring-amber-500/25' : 'border-zinc-200 dark:border-zinc-800'
+                          }`}
+                        >
+                          <img
+                            src={imgBase64}
+                            alt={`Slide ${idx + 1}`}
+                            className="w-full h-full object-cover"
+                            referrerPolicy="no-referrer"
+                          />
+                          
+                          {/* Hover action bar overlays */}
+                          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-1.5 z-10">
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveImage(idx)}
+                              className="self-end bg-red-650 hover:bg-red-500 bg-red-600 text-white rounded p-1 shadow-md hover:scale-105 transition-transform"
+                              title="Remover Imagem"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                            
+                            <button
+                              type="button"
+                              onClick={() => handleSetCoverImage(idx)}
+                              className={`w-full py-1 rounded text-[9px] font-bold text-center uppercase tracking-wide transition-all ${
+                                isCover 
+                                  ? 'bg-amber-500 text-black' 
+                                  : 'bg-white/90 hover:bg-white text-zinc-900'
+                              }`}
+                            >
+                              {isCover ? 'Capa ⭐' : 'Marcar Capa'}
+                            </button>
+                          </div>
+                          
+                          {isCover && (
+                            <div className="absolute top-1.5 left-1.5 bg-amber-500 text-black text-[8px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded shadow z-10">
+                              Capa
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
 
               <div className="space-y-1">

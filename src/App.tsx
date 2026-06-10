@@ -10,7 +10,7 @@ import ClientArea from './components/ClientArea';
 import RaffleDetailPage from './components/RaffleDetailPage';
 import AdminPanel from './components/AdminPanel';
 import { 
-  Trophy, Menu, X, Sun, Moon, Ticket, Coins, LayoutDashboard, Check, 
+  Trophy, Menu, X, Ticket, Coins, LayoutDashboard, Check, 
   CheckCircle2, Copy, ArrowRight, Search, Calendar, ChevronRight, Info, 
   Lock, User, Sparkles, Clock, ArrowLeft, AlertTriangle, Download, RefreshCw 
 } from 'lucide-react';
@@ -507,10 +507,6 @@ export default function App() {
     }
   };
 
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light');
-  };
-
   const activeRaffleDetails = useMemo(() => {
     if (!selectedRaffleId) return null;
     return raffles.find(r => r.id === selectedRaffleId) || null;
@@ -594,20 +590,11 @@ export default function App() {
             </button>
           </nav>
 
-          <div className="flex items-center gap-2 bg-zinc-100 dark:bg-zinc-900 py-1 px-1 rounded-xl">
-            {/* Dark/Light mode switcher */}
-            <button
-              onClick={toggleTheme}
-              className="p-1.5 text-zinc-500 dark:text-zinc-450 hover:text-emerald-500 transition-all cursor-pointer rounded-lg"
-              title={theme === 'dark' ? 'Tema Claro' : 'Tema Escuro'}
-            >
-              {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-500" /> : <Moon className="w-4 h-4 text-zinc-700" />}
-            </button>
-
+          <div className="flex items-center gap-2">
             {/* Mobile menu trigger button */}
             <button
               onClick={() => setMobileMenuOpen(prev => !prev)}
-              className="md:hidden p-1.5 text-zinc-500 hover:text-emerald-500 rounded-lg cursor-pointer"
+              className="md:hidden p-1.5 text-zinc-400 hover:text-emerald-500 rounded-lg cursor-pointer bg-zinc-900 border border-zinc-800"
             >
               {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
@@ -617,28 +604,28 @@ export default function App() {
         {/* Mobile Navigation Drawer Overlay */}
         {mobileMenuOpen && (
           <div className="md:hidden bg-zinc-950 border-t border-zinc-900 p-4 transition-all block animate-in slide-in-from-top-4">
-            <div className="flex flex-col gap-3 font-semibold text-xs text-zinc-700 dark:text-zinc-300">
+            <div className="flex flex-col gap-3 font-semibold text-xs text-white">
               <button
                 onClick={() => { setView('home'); setSelectedRaffleId(null); setMobileMenuOpen(false); }}
-                className="text-left py-2 hover:bg-zinc-50 dark:hover:bg-zinc-900 px-3 rounded-lg"
+                className="text-left py-2 hover:bg-zinc-900 px-3 rounded-lg transition-colors"
               >
                 📱 Cotas e Sorteios
               </button>
               <button
                 onClick={() => { setView('ganhadores'); setMobileMenuOpen(false); }}
-                className="text-left py-2 hover:bg-zinc-50 dark:hover:bg-zinc-900 px-3 rounded-lg"
+                className="text-left py-2 hover:bg-zinc-900 px-3 rounded-lg transition-colors"
               >
                 🏆 Quadro de Ganhadores
               </button>
               <button
                 onClick={() => { setView('meus-numeros'); setClientFocusQuery(''); setMobileMenuOpen(false); }}
-                className="text-left py-2 hover:bg-zinc-50 dark:hover:bg-zinc-900 px-3 rounded-lg"
+                className="text-left py-2 hover:bg-zinc-900 px-3 rounded-lg transition-colors"
               >
                 🔍 Consultar Cotas por CPF
               </button>
               <button
                 onClick={() => { setView('admin'); setMobileMenuOpen(false); }}
-                className="text-left py-2 bg-zinc-900 dark:bg-zinc-800 text-white px-3 py-2 rounded-lg flex items-center gap-1"
+                className="text-left py-2 bg-zinc-900 text-white px-3 py-2 rounded-lg flex items-center gap-1 transition-colors hover:bg-zinc-800"
               >
                 <Lock className="w-3.5 h-3.5" /> Administração
               </button>

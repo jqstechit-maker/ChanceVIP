@@ -1,0 +1,386 @@
+{
+  "raffles": [
+    {
+      "id": "raf-mt07",
+      "name": "YAMAHA MT-07 2026 - ZERO KM + R$ 5.000 NO PIX",
+      "description": "A esportiva mais amada do Brasil pode ser sua nesta ação imperdível! Motor bicilíndrico crossplane de 689cc, freios ABS e painel digital completo. Documentação e frete grátis para todo o território nacional. Participe e boa sorte!",
+      "rules": "1. O sorteio será realizado com base na Extração da Loteria Federal assim que todos os números forem vendidos.\n2. Para identificar o ganhador, utilizaremos os últimos 4 dígitos do 1º prêmio.\n3. O pagamento deve ser realizado em até 15 minutos via PIX, caso contrário, os números voltarão a ficar disponíveis.\n4. Imagens meramente ilustrativas.",
+      "totalNumbers": 10000,
+      "numberPrice": 15,
+      "drawDate": "2026-06-25",
+      "drawConcurso": "Concurso 6023 da Loteria Federal",
+      "imageUrl": "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&q=80&w=800",
+      "status": "active",
+      "winnerNumber": null,
+      "winnerName": null,
+      "winnerCity": null,
+      "createdAt": "2026-06-04T22:58:29.510Z",
+      "prize1": "YAMAHA MT-07 2026 - ZERO KM",
+      "prize2": "R$ 5.000 NO PIX",
+      "prize3": "R$ 1.000 NO PIX"
+    },
+    {
+      "id": "raf-iphone15",
+      "name": "IPHONE 15 PRO MAX 512GB - TITÂNIO NATURAL",
+      "description": "Participe do sorteio de um iPhone 15 Pro Max de 512GB na cor Titânio Natural. O smartphone mais avançado com chip A17 Pro de alto desempenho, câmera pro de 48MP e estojo em titânio incrivelmente resistente.",
+      "rules": "1. Sorteio garantido baseado na Loteria Federal.\n2. O vencedor será o portador do número exato sorteado.\n3. Cancelamento automático de reservas não pagas em 15 minutos.\n4. Entrega expressa grátis para todo o Brasil.",
+      "totalNumbers": 1000,
+      "numberPrice": 5,
+      "drawDate": "2026-06-18",
+      "drawConcurso": "Concurso 6021 da Loteria Federal",
+      "imageUrl": "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&q=80&w=800",
+      "status": "active",
+      "winnerNumber": null,
+      "winnerName": null,
+      "winnerCity": null,
+      "createdAt": "2026-06-07T22:58:29.510Z",
+      "prize1": "IPHONE 15 PRO MAX 512GB",
+      "prize2": "R$ 1.500 NO PIX",
+      "prize3": "R$ 500 NO PIX"
+    },
+    {
+      "id": "raf-mini",
+      "name": "MINI COOPER S ROADSTER CABRIOLET",
+      "description": "Ação promocional super exclusiva! Mini Cooper S Roadster conversível com motor Turbo, bancos esportivos em couro, câmbio borboleta e design inconfundível. Uma verdadeira máquina britânica na sua garagem!",
+      "rules": "1. Sorteio pela Loteria Federal.\n2. Reservas com validade estrita de 15 minutos.\n3. Retirada de responsabilidade do ganhador ou opção de entrega direta acordada.\n4. Auditoria completa pós-pagamento.",
+      "totalNumbers": 5000,
+      "numberPrice": 45,
+      "drawDate": "2026-06-30",
+      "drawConcurso": "Concurso 6025 da Loteria Federal",
+      "imageUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=800",
+      "status": "active",
+      "winnerNumber": null,
+      "winnerName": null,
+      "winnerCity": null,
+      "createdAt": "2026-05-30T22:58:29.510Z",
+      "prize1": "MINI COOPER S ROADSTER CABRIOLET",
+      "prize2": "R$ 10.000 NO PIX",
+      "prize3": "R$ 2.000 NO PIX"
+    },
+    {
+      "id": "raf-drawn-tv",
+      "name": "SAMSUNG ULTRA HD SMART TV 65\" 4K",
+      "description": "Sorteio realizado para celebrar a inauguração da nossa plataforma! Uma Smart TV Samsung de nova geração para assistir ao seu futebol ou séries com o máximo de imersão tecnológica.",
+      "rules": "Contemplado via extração regulamentar da Loteria Federal.",
+      "totalNumbers": 500,
+      "numberPrice": 2.5,
+      "drawDate": "2026-05-28",
+      "drawConcurso": "Concurso 6015 da Loteria Federal",
+      "imageUrl": "https://images.unsplash.com/photo-1593305841991-05c297ba4575?auto=format&fit=crop&q=80&w=800",
+      "status": "drawn",
+      "winnerNumber": "0317",
+      "winnerName": "Marcos de Souza Mendes",
+      "winnerCity": "Ribeirão Preto - SP",
+      "createdAt": "2026-05-20T22:58:29.510Z",
+      "prize1": "SAMSUNG SMART TV 65\" 4K",
+      "prize2": "R$ 500 NO PIX",
+      "prize3": "R$ 200 NO PIX"
+    }
+  ],
+  "sales": [
+    {
+      "raffleId": "raf-drawn-tv",
+      "numbers": [
+        "0317"
+      ],
+      "buyer": {
+        "name": "Marcos de Souza Mendes",
+        "cpf": "123***789-00",
+        "phone": "5511988887777",
+        "email": "marcos.mendes@email.com",
+        "city": "Ribeirão Preto - SP"
+      },
+      "paymentId": "pay-drawn-tv-0317",
+      "totalAmount": 2.5,
+      "status": "approved",
+      "qrCode": "00020101021226300014br.gov.pix0112...",
+      "qrCodeCopy": "000201010212263000...MOCK...PIX",
+      "gateway": "mercadopago",
+      "createdAt": "2026-06-03T22:58:29.511Z",
+      "expiresAt": "2026-06-04T01:22:29.511Z",
+      "approvedAt": "2026-06-04T01:22:29.511Z"
+    },
+    {
+      "raffleId": "raf-mt07",
+      "numbers": [
+        "0005",
+        "0006",
+        "0007",
+        "0008",
+        "0009"
+      ],
+      "buyer": {
+        "name": "Ana Júlia Santos",
+        "cpf": "411.233.159-01",
+        "phone": "11942831000",
+        "email": "anajulia@decor.com",
+        "city": "São Paulo - SP"
+      },
+      "paymentId": "pay-demo-0-1781045909511",
+      "totalAmount": 75,
+      "status": "approved",
+      "qrCode": "00020101021226300014br.gov.pix0112...",
+      "qrCodeCopy": "00020101021226300014br.gov.pix...DEMO...pay-demo-0-1781045909511",
+      "gateway": "mercadopago",
+      "createdAt": "2026-06-08T10:58:29.511Z",
+      "expiresAt": "2026-06-09T23:13:29.511Z",
+      "approvedAt": "2026-06-08T12:28:29.511Z"
+    },
+    {
+      "raffleId": "raf-mt07",
+      "numbers": [
+        "0015",
+        "0016",
+        "0017"
+      ],
+      "buyer": {
+        "name": "Pedro Henrique Alencar",
+        "cpf": "142.948.309-88",
+        "phone": "21984223101",
+        "email": "pedro.alencar@site.com.br",
+        "city": "Rio de Janeiro - RJ"
+      },
+      "paymentId": "pay-demo-1-1781045909511",
+      "totalAmount": 45,
+      "status": "approved",
+      "qrCode": "00020101021226300014br.gov.pix0112...",
+      "qrCodeCopy": "00020101021226300014br.gov.pix...DEMO...pay-demo-1-1781045909511",
+      "gateway": "mercadopago",
+      "createdAt": "2026-06-08T22:58:29.511Z",
+      "expiresAt": "2026-06-09T23:13:29.511Z",
+      "approvedAt": "2026-06-08T23:58:29.511Z"
+    },
+    {
+      "raffleId": "raf-mt07",
+      "numbers": [
+        "0025",
+        "0026",
+        "0027",
+        "0028",
+        "0029",
+        "0030",
+        "0031",
+        "0032"
+      ],
+      "buyer": {
+        "name": "Camila Rodrigues Coimbra",
+        "cpf": "110.455.677-44",
+        "phone": "31971168233",
+        "email": "camila.coi@gmail.com",
+        "city": "Belo Horizonte - MG"
+      },
+      "paymentId": "pay-demo-2-1781045909511",
+      "totalAmount": 120,
+      "status": "approved",
+      "qrCode": "00020101021226300014br.gov.pix0112...",
+      "qrCodeCopy": "00020101021226300014br.gov.pix...DEMO...pay-demo-2-1781045909511",
+      "gateway": "mercadopago",
+      "createdAt": "2026-06-09T10:58:29.511Z",
+      "expiresAt": "2026-06-09T23:13:29.512Z",
+      "approvedAt": "2026-06-09T11:28:29.512Z"
+    },
+    {
+      "raffleId": "raf-mt07",
+      "numbers": [
+        "0035",
+        "0036"
+      ],
+      "buyer": {
+        "name": "Cláudio Bezerra Neto",
+        "cpf": "350.291.990-21",
+        "phone": "81992147754",
+        "email": "claudio@net.com.br",
+        "city": "Recife - PE"
+      },
+      "paymentId": "pay-demo-3-1781045909512",
+      "totalAmount": 30,
+      "status": "expired",
+      "qrCode": "00020101021226300014br.gov.pix0112...",
+      "qrCodeCopy": "00020101021226300014br.gov.pix...DEMO...pay-demo-3-1781045909512",
+      "gateway": "mercadopago",
+      "createdAt": "2026-06-09T22:58:29.512Z",
+      "expiresAt": "2026-06-09T23:13:29.512Z",
+      "approvedAt": null
+    }
+  ],
+  "occupiedTickets": {
+    "raf-drawn-tv": {
+      "0317": {
+        "status": "paid",
+        "buyerName": "Marcos de Souza Mendes",
+        "phone": "5511988887777",
+        "cpf": "123***789-00",
+        "reservedAt": "2026-06-09T22:58:29.511Z",
+        "paymentId": "pay-drawn-tv-0317"
+      }
+    },
+    "raf-mt07": {
+      "0005": {
+        "status": "paid",
+        "buyerName": "Ana Júlia Santos",
+        "phone": "11942831000",
+        "cpf": "411.233.159-01",
+        "reservedAt": "2026-06-08T10:58:29.511Z",
+        "paymentId": "pay-demo-0-1781045909511"
+      },
+      "0006": {
+        "status": "paid",
+        "buyerName": "Ana Júlia Santos",
+        "phone": "11942831000",
+        "cpf": "411.233.159-01",
+        "reservedAt": "2026-06-08T10:58:29.511Z",
+        "paymentId": "pay-demo-0-1781045909511"
+      },
+      "0007": {
+        "status": "paid",
+        "buyerName": "Ana Júlia Santos",
+        "phone": "11942831000",
+        "cpf": "411.233.159-01",
+        "reservedAt": "2026-06-08T10:58:29.511Z",
+        "paymentId": "pay-demo-0-1781045909511"
+      },
+      "0008": {
+        "status": "paid",
+        "buyerName": "Ana Júlia Santos",
+        "phone": "11942831000",
+        "cpf": "411.233.159-01",
+        "reservedAt": "2026-06-08T10:58:29.511Z",
+        "paymentId": "pay-demo-0-1781045909511"
+      },
+      "0009": {
+        "status": "paid",
+        "buyerName": "Ana Júlia Santos",
+        "phone": "11942831000",
+        "cpf": "411.233.159-01",
+        "reservedAt": "2026-06-08T10:58:29.511Z",
+        "paymentId": "pay-demo-0-1781045909511"
+      },
+      "0015": {
+        "status": "paid",
+        "buyerName": "Pedro Henrique Alencar",
+        "phone": "21984223101",
+        "cpf": "142.948.309-88",
+        "reservedAt": "2026-06-08T22:58:29.511Z",
+        "paymentId": "pay-demo-1-1781045909511"
+      },
+      "0016": {
+        "status": "paid",
+        "buyerName": "Pedro Henrique Alencar",
+        "phone": "21984223101",
+        "cpf": "142.948.309-88",
+        "reservedAt": "2026-06-08T22:58:29.511Z",
+        "paymentId": "pay-demo-1-1781045909511"
+      },
+      "0017": {
+        "status": "paid",
+        "buyerName": "Pedro Henrique Alencar",
+        "phone": "21984223101",
+        "cpf": "142.948.309-88",
+        "reservedAt": "2026-06-08T22:58:29.511Z",
+        "paymentId": "pay-demo-1-1781045909511"
+      },
+      "0025": {
+        "status": "paid",
+        "buyerName": "Camila Rodrigues Coimbra",
+        "phone": "31971168233",
+        "cpf": "110.455.677-44",
+        "reservedAt": "2026-06-09T10:58:29.512Z",
+        "paymentId": "pay-demo-2-1781045909511"
+      },
+      "0026": {
+        "status": "paid",
+        "buyerName": "Camila Rodrigues Coimbra",
+        "phone": "31971168233",
+        "cpf": "110.455.677-44",
+        "reservedAt": "2026-06-09T10:58:29.512Z",
+        "paymentId": "pay-demo-2-1781045909511"
+      },
+      "0027": {
+        "status": "paid",
+        "buyerName": "Camila Rodrigues Coimbra",
+        "phone": "31971168233",
+        "cpf": "110.455.677-44",
+        "reservedAt": "2026-06-09T10:58:29.512Z",
+        "paymentId": "pay-demo-2-1781045909511"
+      },
+      "0028": {
+        "status": "paid",
+        "buyerName": "Camila Rodrigues Coimbra",
+        "phone": "31971168233",
+        "cpf": "110.455.677-44",
+        "reservedAt": "2026-06-09T10:58:29.512Z",
+        "paymentId": "pay-demo-2-1781045909511"
+      },
+      "0029": {
+        "status": "paid",
+        "buyerName": "Camila Rodrigues Coimbra",
+        "phone": "31971168233",
+        "cpf": "110.455.677-44",
+        "reservedAt": "2026-06-09T10:58:29.512Z",
+        "paymentId": "pay-demo-2-1781045909511"
+      },
+      "0030": {
+        "status": "paid",
+        "buyerName": "Camila Rodrigues Coimbra",
+        "phone": "31971168233",
+        "cpf": "110.455.677-44",
+        "reservedAt": "2026-06-09T10:58:29.512Z",
+        "paymentId": "pay-demo-2-1781045909511"
+      },
+      "0031": {
+        "status": "paid",
+        "buyerName": "Camila Rodrigues Coimbra",
+        "phone": "31971168233",
+        "cpf": "110.455.677-44",
+        "reservedAt": "2026-06-09T10:58:29.512Z",
+        "paymentId": "pay-demo-2-1781045909511"
+      },
+      "0032": {
+        "status": "paid",
+        "buyerName": "Camila Rodrigues Coimbra",
+        "phone": "31971168233",
+        "cpf": "110.455.677-44",
+        "reservedAt": "2026-06-09T10:58:29.512Z",
+        "paymentId": "pay-demo-2-1781045909511"
+      }
+    },
+    "raf-1781050749273": {}
+  },
+  "config": {
+    "activeGateway": "mercadopago",
+    "mercadopagoToken": "TEST-7281394719283719-MP-MOCK-TOKEN",
+    "efiToken": "TEST-EFI-90184029384-TOKEN",
+    "asaasToken": "TEST-ASAAS-92817392817-TOKEN",
+    "whatsappToken": "WHATSAPP_MOCK_API_KEY_J298H",
+    "whatsappPhone": "5511999998888",
+    "autoApproveSimulation": true,
+    "manualPixKey": "suachave@pix.com",
+    "manualPixName": "ChanceVip Facilitadora LTDA",
+    "manualPixBank": "Mercado Pago / Banco Inter",
+    "manualPixInstructions": "Prezado cliente, realize o Pix Copia e Cola ou escaneie o código QR. Em seguida, clique no botão de WhatsApp para nos enviar o comprovante de pagamento. Nós daremos a baixa manual das suas cotas em instantes!"
+  },
+  "auditLogs": [
+    {
+      "id": "log-1781050749273-808",
+      "timestamp": "2026-06-10T00:19:09.273Z",
+      "action": "Nova Rifa Criada",
+      "details": "Ação: moto eletrica (1000 números)",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "log-1781046809531-920",
+      "timestamp": "2026-06-09T23:13:29.531Z",
+      "action": "Reserva expirada automaticamente",
+      "details": "Compra pay-demo-3-1781045909512 com os números 0035, 0036 expirou após 15 minutos.",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "log-1781045909512-408",
+      "timestamp": "2026-06-09T22:58:29.512Z",
+      "action": "Database initialized and formatted with demo data.",
+      "details": "",
+      "ip": "127.0.0.1"
+    }
+  ],
+  "webhookLogs": []
+}

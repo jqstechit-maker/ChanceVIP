@@ -478,7 +478,7 @@ app.get('/api/raffles/:id', (req, res) => {
 
 // CREATE / DUPLICATE raffle
 app.post('/api/raffles', (req, res) => {
-  const { id, name, description, rules, totalNumbers, numberPrice, drawDate, drawConcurso, imageUrl, status, prize1, prize2, prize3 } = req.body;
+  const { id, name, description, rules, totalNumbers, numberPrice, drawDate, drawConcurso, imageUrl, status, prize1, prize2, prize3, images } = req.body;
   
   if (!name || !totalNumbers || !numberPrice) {
     return res.status(400).json({ error: 'Campos obrigatórios ausentes' });
@@ -504,7 +504,8 @@ app.post('/api/raffles', (req, res) => {
     createdAt: req.body.createdAt || new Date().toISOString(),
     prize1: prize1 || '',
     prize2: prize2 || '',
-    prize3: prize3 || ''
+    prize3: prize3 || '',
+    images: images || []
   };
 
   if (isNew) {

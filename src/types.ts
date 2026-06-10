@@ -13,6 +13,7 @@ export interface Raffle {
   drawDate: string;
   drawConcurso: string; // e.g. Concurso 5982 da Loteria Federal
   imageUrl: string;
+  images?: string[];
   status: 'active' | 'drawn' | 'archived';
   winnerNumber: string | null;
   winnerName: string | null;
